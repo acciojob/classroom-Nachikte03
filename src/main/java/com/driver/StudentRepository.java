@@ -80,6 +80,7 @@ public class StudentRepository {
         for(String teacher:teacherStudent.keySet()){
             deleteTeacherByName(teacher);
         }
+        studentMap.clear();
         return "OK";
     }
 }
