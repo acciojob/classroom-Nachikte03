@@ -52,7 +52,7 @@ public class StudentService {
         return studentRepository.getAllStudents();
     }
 
-    public Teacher deleteTeacherByName(String teacher){
+    public String deleteTeacherByName(String teacher){
         return studentRepository.deleteTeacherByName(teacher);
 
     }

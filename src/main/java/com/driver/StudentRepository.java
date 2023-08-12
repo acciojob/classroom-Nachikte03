@@ -25,21 +25,22 @@ public class StudentRepository {
     }
 
     public Student addStudent(Student student){
-        studentMap.put(student.getName(),student);
-        return student;
+        return studentMap.put(student.getName(),student);
     }
 
     public Teacher addTeacher(Teacher teacher){
-        teachermap.put(teacher.getName(),teacher);
-        teacherStudent.put(teacher.getName(),new ArrayList<String>());
-        return teacher;
+        return teachermap.put(teacher.getName(),teacher);
     }
 
     public String addStudentTeacherPair(String student,String teacher){
-        List<String> list = teacherStudent.get(teacher);
-        list.add(student);
-        Teacher teacher1 = teachermap.get(teacher);
-        teacher1.setNumberOfStudents(teacher1.getNumberOfStudents()+1);
+        List<String> list = new ArrayList<>();
+        if(teacherStudent.containsKey(teacher)){
+            list = teacherStudent.get(teacher);
+        }
+        if(studentMap.containsKey(student)){
+            list.add(student);
+        }
+        teacherStudent.put(teacher,list);
         return teacher;
     }
 
@@ -49,10 +50,10 @@ public class StudentRepository {
     }
 
     public Teacher getTeacherByName(String name){
-
         return teachermap.get(name);
     }
     public List<String> getStudentsByTeacherName(String teacher){
+
         return teacherStudent.get(teacher);
     }
 
@@ -64,14 +65,22 @@ public class StudentRepository {
         return list;
     }
 
-    public Teacher deleteTeacherByName(String teacher){
+    public String deleteTeacherByName(String teacher){
         teacherStudent.remove(teacher);
-        return teachermap.remove(teacher);
+        List<String> list = teacherStudent.get(teacher);
+        for(String student:list){
+            if(studentMap.containsKey(student)){
+                studentMap.remove(student);
+            }
+        }
+        teachermap.remove(teacher);
+        return teacher;
     }
 
     public String deleteAllTeachers(){
-        teacherStudent.clear();
-        teachermap.clear();
+        for(String teacher:teachermap.keySet()){
+            deleteTeacherByName(teacher);
+        }
         return "OK";
     }
 }
