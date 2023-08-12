@@ -41,6 +41,11 @@ public class StudentRepository {
         teacherStudent.put(teacher,list);
         return teacher;
     }
+    public void method(){
+        System.out.println(teachermap);
+        System.out.println(teachermap);
+        System.out.println(teacherStudent);
+    }
 
     public Student getStudentByName(String name){
         return studentMap.get(name);
