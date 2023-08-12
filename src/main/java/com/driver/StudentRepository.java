@@ -62,8 +62,10 @@ public class StudentRepository {
 
     public List<String> getAllStudents(){
         List<String> list = new ArrayList<>();
-        for(Student student:studentMap.values()){
-            list.add(student.getName());
+        for(String teacher:teacherStudent.keySet()){
+            for(String student:teacherStudent.get(teacher)){
+                list.add(student);
+            }
         }
         return list;
     }
