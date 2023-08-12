@@ -37,9 +37,7 @@ public class StudentRepository {
         if(teacherStudent.containsKey(teacher)){
             list = teacherStudent.get(teacher);
         }
-        if(studentMap.containsKey(student)){
-            list.add(student);
-        }
+        list.add(student);
         teacherStudent.put(teacher,list);
         return teacher;
     }
@@ -66,14 +64,14 @@ public class StudentRepository {
     }
 
     public String deleteTeacherByName(String teacher){
-        teacherStudent.remove(teacher);
         List<String> list = teacherStudent.get(teacher);
+        teacherStudent.remove(teacher);
+        teachermap.remove(teacher);
         for(String student:list){
             if(studentMap.containsKey(student)){
                 studentMap.remove(student);
             }
         }
-        teachermap.remove(teacher);
         return teacher;
     }
 
